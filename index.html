@@ -86,17 +86,12 @@
       <h2>Contact</h2>
       <p class="muted">Prefer email? Reach us at <a href="mailto:flowless.automations@gmail.com">flowless.automations@gmail.com</a></p>
 
-      <form id="contactForm" class="contact-form" onsubmit="return sendMail();">
-        <div class="row">
-          <input name="name" id="name" placeholder="Your name" required>
-          <input name="email" id="email" placeholder="Your email" type="email" required>
-        </div>
-        <textarea name="message" id="message" rows="6" placeholder="Tell us a bit about your business and what you need" required></textarea>
-        <div class="form-row">
-          <button type="submit" class="btn">Send message</button>
-          <a class="ghost" href="mailto:flowless.automations@gmail.com">Or email us directly</a>
-        </div>
-      </form>
+<form action="mailto:flowless.automations@gmail.com" method="POST" enctype="text/plain">
+  <input type="text" name="name" placeholder="Your Name" required>
+  <input type="email" name="email" placeholder="Your Email" required>
+  <textarea name="message" placeholder="Your Message" required></textarea>
+  <button type="submit">Send Message</button>
+</form>
 
       <p class="disclaimer">This form opens your email client to send — no backend required.</p>
     </section>
