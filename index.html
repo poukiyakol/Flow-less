@@ -70,6 +70,13 @@
     button[type="submit"]:hover{opacity:0.85}
     .success-message{display:none;color:#00ffcc;margin-top:10px;font-size:0.95rem}
 
+    .contact-info {
+      text-align:center;
+      margin-top:15px;
+      font-size:1rem;
+      color:var(--muted);
+    }
+
     footer{padding:2rem 0;text-align:center;color:rgba(255,255,255,0.6);font-size:0.9rem}
 
     @media (max-width:920px){
@@ -135,6 +142,9 @@
 
     <section id="contact">
       <h2>Get in Touch</h2>
+      <div class="contact-info">
+        📞 Example Phone: +1 (555) 123-4567
+      </div>
       <form class="contact-form" id="contactForm" action="https://formsubmit.co/ajax/flowless.automations@gmail.com" method="POST">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_subject" value="New Flowless Inquiry!">
