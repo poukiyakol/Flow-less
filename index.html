@@ -1,229 +1,197 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flowless Automations</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Flowless — Your 24/7 AI Receptionist</title>
+  <meta name="description" content="Flowless provides AI receptionists that answer 24/7, book appointments, and handle Q&A like a human." />
   <style>
-    html {
-      scroll-behavior: smooth;
+    :root{
+      --bg:#0f1724;
+      --muted: rgba(255,255,255,0.72);
+      --glass: rgba(255,255,255,0.06);
+      --glass-2: rgba(255,255,255,0.08);
+      --accent: linear-gradient(90deg,#7c5cff,#3fb0ff);
+      --radius:18px;
     }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial; background:var(--bg); color:#fff;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
 
-    body {
-      margin: 0;
-      font-family: 'Alliance', sans-serif;
-      background: radial-gradient(circle at top left, #0a0a0a, #111);
-      color: #fff;
-      overflow-x: hidden;
+    /* Header */
+    header.site-header{
+      position:fixed;
+      top:12px;
+      left:50%;
+      transform:translateX(-50%);
+      width:calc(100% - 24px);
+      height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:1200;
+      background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      backdrop-filter: blur(12px);
+      border:1px solid rgba(255,255,255,0.05);
+      border-radius:24px;  /* rounded top bar */
+      padding:0 1rem;
+      box-shadow:0 6px 24px rgba(0,0,0,0.4);
     }
+    .header-inner{max-width:1100px;width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 1rem}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#c7b3ff,#8cd4ff);padding:8px;flex:0 0 44px}
+    .brand-name{font-weight:700;letter-spacing:0.6px}
+    nav.main-nav{display:flex;gap:16px;align-items:center}
+    nav.main-nav a{padding:8px 10px;border-radius:10px;color:var(--muted);font-weight:600}
+    nav.main-nav a.cta{background:var(--accent);color:#fff;padding:10px 14px;border-radius:14px}
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5rem 3rem;
-      position: fixed;
-      width: 100%;
-      top: 0;
-      left: 0;
-      backdrop-filter: blur(20px);
-      background: rgba(255, 255, 255, 0.05);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 1000;
-    }
+    /* layout */
+    main{padding-top:110px}
+    .container{max-width:1100px;margin:0 auto;padding:2rem}
 
-    header h1 {
-      font-weight: 700;
-      font-size: 1.5rem;
-      letter-spacing: 1px;
-    }
+    /* hero */
+    .hero{min-height:72vh;display:grid;grid-template-columns:1fr 420px;gap:2rem;align-items:center;padding:3rem 0}
+    .hero-copy h1{font-family:'Alliance',Inter,system-ui; font-weight:800; font-size:2.4rem; margin:0 0 .6rem}
+    .lead{color:rgba(255,255,255,0.85);margin:0 0 1rem}
+    .cta-row{display:flex;gap:12px}
+    .btn-primary{background:linear-gradient(90deg,#5b45ff,#2fb6ff);color:white;padding:12px 18px;border-radius:14px;font-weight:700}
+    .btn-ghost{padding:10px 14px;border-radius:12px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
 
-    nav a {
-      color: #fff;
-      margin-left: 2rem;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
+    .hero-card{display:flex;align-items:center;justify-content:center}
+    .glass-card{background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03)); border-radius:20px;padding:22px;backdrop-filter: blur(14px);box-shadow:0 10px 40px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.03)}
 
-    nav a:hover {
-      color: #a6d8ff;
-    }
+    /* features */
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:1.6rem}
+    .feature{background:var(--glass);padding:18px;border-radius:14px;backdrop-filter: blur(10px);border:1px solid rgba(255,255,255,0.02)}
+    .feature h3{margin:0 0 8px}
 
-    section {
-      padding: 8rem 2rem;
-      max-width: 1000px;
-      margin: 0 auto;
-      text-align: center;
-    }
+    /* how */
+    .how-list{margin:1rem 0;padding-left:1.1rem;color:var(--muted)}
 
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.1));
-      border-radius: 2rem;
-      backdrop-filter: blur(30px);
-      margin-top: 6rem;
-      padding: 4rem 2rem;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.3);
-    }
+    /* contact */
+    #contact{margin:3rem auto;padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));border-radius:16px;max-width:880px;backdrop-filter: blur(12px);border:1px solid rgba(255,255,255,0.02)}
+    .contact-form{display:flex;flex-direction:column;gap:12px}
+    .contact-form .row{display:flex;gap:12px}
+    input,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);background:rgba(255,255,255,0.02);color:#fff;outline:none}
+    button[type="submit"]{padding:12px 16px;border-radius:12px;border:none;background:linear-gradient(90deg,#5b45ff,#2fb6ff);color:white;font-weight:700;cursor:pointer}
 
-    .hero h2 {
-      font-size: 3rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
+    footer{padding:2rem 0;text-align:center;color:rgba(255,255,255,0.6);font-size:0.9rem}
 
-    .hero p {
-      max-width: 700px;
-      font-size: 1.2rem;
-      opacity: 0.8;
-      margin-bottom: 2rem;
-    }
-
-    .btn {
-      padding: 1rem 2rem;
-      background: rgba(255, 255, 255, 0.15);
-      border: none;
-      border-radius: 2rem;
-      backdrop-filter: blur(15px);
-      color: #fff;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      text-decoration: none;
-    }
-
-    .btn:hover {
-      background: rgba(255,255,255,0.25);
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-
-    .feature {
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 1.5rem;
-      padding: 2rem;
-      backdrop-filter: blur(20px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    }
-
-    .feature h3 {
-      font-size: 1.4rem;
-      margin-bottom: 1rem;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      color: rgba(255,255,255,0.6);
-      font-size: 0.9rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      margin-top: 4rem;
-    }
-
-    /* Contact Section */
-    #contact {
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(25px);
-      border-radius: 2rem;
-      padding: 4rem 2rem;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-    }
-
-    #contact form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    #contact input, #contact textarea {
-      padding: 1rem 1.2rem;
-      border: none;
-      border-radius: 1.2rem;
-      background: rgba(255,255,255,0.15);
-      color: #fff;
-      font-size: 1rem;
-      outline: none;
-    }
-
-    #contact button {
-      padding: 1rem;
-      border: none;
-      border-radius: 2rem;
-      background: rgba(255,255,255,0.25);
-      color: #fff;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    #contact button:hover {
-      background: rgba(255,255,255,0.4);
+    @media (max-width:920px){
+      .hero{grid-template-columns:1fr;gap:1rem;padding:2rem 0}
+      nav.main-nav{gap:8px}
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Flowless</h1>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="brand-name">Flowless</div>
+      </div>
+      <nav class="main-nav">
+        <a href="#about" class="scroll-link">Know more</a>
+        <a href="#contact" class="scroll-link cta">Contact</a>
+      </nav>
+    </div>
   </header>
 
-  <section class="hero" id="hero">
-    <h2>Your 24/7 AI Receptionist</h2>
-    <p>We help local businesses set up AI receptionists that answer calls, book appointments, handle FAQs, and work non-stop — saving you time and money while keeping customers happy.</p>
-    <div>
-      <a href="#about" class="btn">Know More</a>
-      <a href="#contact" class="btn">Contact Us</a>
-    </div>
-  </section>
-
-  <section id="about">
-    <h2>What We Do</h2>
-    <p>At Flowless, we build intelligent, human-like AI receptionists for local businesses. They handle customer questions, manage bookings, and provide 24/7 support so you can focus on running your business.</p>
-    <div class="features">
-      <div class="feature">
-        <h3>24/7 Availability</h3>
-        <p>Never miss a call or message again. Our AI works round-the-clock to engage your customers.</p>
+  <main>
+    <section class="container hero" id="hero">
+      <div class="hero-copy">
+        <h1>Your 24/7 AI Receptionist</h1>
+        <p class="lead">AI receptionists for local businesses — answer calls, book appointments, handle Q&A, and deliver human-like service around the clock.</p>
+        <div class="cta-row">
+          <a href="#contact" class="btn-primary scroll-link">Get started</a>
+          <a href="#how" class="btn-ghost scroll-link">How it works</a>
+        </div>
       </div>
-      <div class="feature">
-        <h3>Appointment Booking</h3>
-        <p>Fully automated scheduling that syncs seamlessly with your calendar.</p>
-      </div>
-      <div class="feature">
-        <h3>Instant Responses</h3>
-        <p>Delight your clients with real-time, natural replies powered by AI.</p>
-      </div>
-    </div>
-  </section>
 
-  <section id="contact">
-    <h2>Get in Touch</h2>
-    <form action="mailto:flowless.automations@gmail.com" method="POST" enctype="text/plain">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" placeholder="Your Message" required rows="5"></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-    <p style="margin-top:2rem;opacity:0.7;">Or email us directly at <a href="mailto:flowless.automations@gmail.com" style="color:#fff;text-decoration:underline;">flowless.automations@gmail.com</a></p>
-  </section>
+      <div class="hero-card">
+        <div class="glass-card">
+          <h3>Live demo</h3>
+          <p style="color:var(--muted)">Simulated call flow: greeting → ask reason → book appointment → confirm.</p>
+        </div>
+      </div>
+    </section>
 
-  <footer>
-    © 2025 Flowless Automations — All Rights Reserved.
-  </footer>
+    <section class="container" id="about">
+      <h2>What We Do</h2>
+      <p style="color:var(--muted)">We build intelligent AI receptionists that manage customer questions, bookings, and provide 24/7 support so business owners can focus on what matters most.</p>
+
+      <div class="features">
+        <div class="feature"><h3>24/7 Availability</h3><p style="color:var(--muted)">Always online to answer customer needs.</p></div>
+        <div class="feature"><h3>Appointment Booking</h3><p style="color:var(--muted)">Fully automated scheduling and confirmations.</p></div>
+        <div class="feature"><h3>Humanlike Support</h3><p style="color:var(--muted)">Conversational flows that sound natural.</p></div>
+        <div class="feature"><h3>Local Focus</h3><p style="color:var(--muted)">We tune each system to your unique business.</p></div>
+      </div>
+    </section>
+
+    <section class="container" id="how">
+      <h2>How it works</h2>
+      <ol class="how-list">
+        <li><strong>Brief:</strong> We learn your workflow and customer requests.</li>
+        <li><strong>Train:</strong> We build conversational flows and booking rules.</li>
+        <li><strong>Launch:</strong> We connect your phone and messaging channels.</li>
+        <li><strong>Improve:</strong> Continuous optimization from real data.</li>
+      </ol>
+    </section>
+
+    <section id="contact">
+      <h2>Get in Touch</h2>
+      <p style="color:var(--muted)">Email us directly at <a href="mailto:flowless.automations@gmail.com" style="color:#fff;text-decoration:underline">flowless.automations@gmail.com</a></p>
+
+      <form class="contact-form" onsubmit="return mailtoSubmit(this)" novalidate>
+        <div class="row">
+          <input name="name" placeholder="Your name" required>
+          <input name="email" placeholder="Your email" type="email" required>
+        </div>
+        <textarea name="message" rows="6" placeholder="Tell us about your business" required></textarea>
+        <button type="submit">Send message</button>
+      </form>
+    </section>
+
+    <footer>
+      © <span id="year"></span> Flowless — All rights reserved.
+    </footer>
+  </main>
+
+  <script>
+    // Smooth scroll with header offset
+    (function(){
+      const header = document.getElementById('siteHeader');
+      const links = document.querySelectorAll('a.scroll-link');
+      function getOffset(){ return header ? header.offsetHeight + 20 : 90; }
+      function scrollToHash(hash){
+        if(!hash) return;
+        const el=document.querySelector(hash);
+        if(!el) return;
+        const y=el.getBoundingClientRect().top+window.scrollY-getOffset();
+        window.scrollTo({top:y,behavior:'smooth'});
+      }
+      links.forEach(a=>{
+        a.addEventListener('click',e=>{
+          const h=a.getAttribute('href');
+          if(!h.startsWith('#'))return;
+          e.preventDefault();
+          history.pushState(null,'',h);
+          scrollToHash(h);
+        });
+      });
+      document.addEventListener('DOMContentLoaded',()=>{
+        document.getElementById('year').textContent=new Date().getFullYear();
+        if(window.location.hash) setTimeout(()=>scrollToHash(window.location.hash),60);
+      });
+      window.mailtoSubmit=function(f){
+        const name=encodeURIComponent(f.name.value);
+        const email=encodeURIComponent(f.email.value);
+        const msg=encodeURIComponent(f.message.value);
+        const subject=encodeURIComponent('Flowless inquiry from '+f.name.value);
+        window.location.href=`mailto:flowless.automations@gmail.com?subject=${subject}&body=Name:%20${name}%0AEmail:%20${email}%0A%0A${msg}`;
+        return false;
+      };
+    })();
+  </script>
 </body>
 </html>
